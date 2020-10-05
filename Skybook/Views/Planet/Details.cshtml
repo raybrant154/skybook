@@ -1,0 +1,209 @@
+﻿@model Skybook.Models.Planet.PlanetDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PlanetDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanetId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanetId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PlanetType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PlanetType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Minerals)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Minerals)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecialBuried)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecialBuried)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SentinelActivity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SentinelActivity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StarSystemId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StarSystemId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Animals)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnimalId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Animal", new { id = item.AnimalId }, null) |
+                @Html.ActionLink("Details", "Details", "Animal", new { id = item.AnimalId }, null) |
+                @Html.ActionLink("Delete", "Delete", "Animal", new { id = item.AnimalId }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlantId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrimaryElement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecondaryElement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Plants)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimaryElement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondaryElement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Plant", new { id = item.PlantId }, null) |
+                @Html.ActionLink("Details", "Details", "Plant", new { id = item.PlantId }, null) |
+                @Html.ActionLink("Delete", "Delete", "Plant", new { id = item.PlantId }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RockId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RockName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrimaryElement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecondaryElement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Rocks)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RockId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimaryElement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondaryElement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Rock", new { id = item.RockId }, null) |
+                @Html.ActionLink("Details", "Details", "Rock", new { id = item.RockId }, null) |
+                @Html.ActionLink("Delete", "Delete", "Rock", new { id = item.RockId }, null)
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,64 @@
+﻿@model Skybook.Models.StarSystemDetail
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>StarSystemDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StarSystemId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StarSystemId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Race)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Race)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Economy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Economy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conflict)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conflict)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,116 @@
+﻿@model Skybook.Models.StarSystemDetail 
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StarSystemDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StarSystemId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StarSystemId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Race)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Race)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Economy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Economy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conflict)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conflict)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StarSystemId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<h4>@Html.DisplayNameFor(model => model.Planets) </h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlanetId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PlanetType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Minerals)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialBuried)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SentinelActivity)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Planets) { 
+    
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanetId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlanetType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Minerals)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecialBuried)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SentinelActivity)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Planet", new { id = item.PlanetId }, null) |
+                @Html.ActionLink("Details", "Details", "Planet", new { id = item.PlanetId }, null) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PlanetId })
+            </td>
+        </tr>
+    
+    }
+</table>
