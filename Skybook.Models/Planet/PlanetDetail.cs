@@ -21,7 +21,7 @@ namespace Skybook.Models.Planet
         public string PlanetType { get; set; }
         [Display(Name="Most Common Minerals")]
         public string Minerals { get; set; }
-        [Display(Name="Special Items buried here")]
+        [Display(Name="Special Items here")]
         public string SpecialBuried { get; set; }
         public string SentinelActivity { get; set; }
 

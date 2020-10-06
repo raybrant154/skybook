@@ -4,12 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 style="color: #C0C0C0">Rock Details</h2>
 
 <div>
-    <h4>RockDetail</h4>
+    
     <hr />
-    <dl class="dl-horizontal">
+    <dl style="color: #C0C0C0" class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.RockId)
         </dt>
@@ -61,6 +61,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RockId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

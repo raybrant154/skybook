@@ -4,12 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 style="color: #C0C0C0">Planet Details</h2>
 
 <div>
-    <h4>PlanetDetail</h4>
+    
     <hr />
-    <dl class="dl-horizontal">
+    <dl style="color: #C0C0C0; padding: 0 0 0 35%" class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.PlanetId)
         </dt>
@@ -69,11 +69,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PlanetId  }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-<table class="table">
+<table style="color: #C0C0C0; margin-top: 5%" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.AnimalId)
@@ -109,7 +109,7 @@
 
 </table>
 
-<table class="table">
+<table style="color: #C0C0C0; margin-top: 5%" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.PlantId)
@@ -159,7 +159,7 @@
 
 </table>
 
-<table class="table">
+<table style="color: #C0C0C0; margin-top: 5%" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.RockId)
