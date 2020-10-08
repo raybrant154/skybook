@@ -12,6 +12,9 @@
 <table style="color: #C0C0C0" class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.PlantId)
         </th>
         <th>
@@ -33,31 +36,34 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlantId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PrimaryElement)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondaryElement)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlanetId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.PlantId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.PlantId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.PlantId })
-        </td>
-    </tr>
+<tr>
+    <td>
+        <img src="/Plant/RetrieveImage/@item.PlantId" alt="" height=250 width=200 />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PlantId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PrimaryElement)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SecondaryElement)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PlanetId)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.PlantId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.PlantId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.PlantId })
+    </td>
+</tr>
 }
 
 </table>

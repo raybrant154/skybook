@@ -17,6 +17,8 @@ namespace Skybook.Data
         public string Minerals { get; set; }
         public string SpecialBuried { get; set; }
         public string SentinelActivity { get; set; }
+        public byte[] Image { get; set; }
+
 
         [ForeignKey(nameof(StarSystem))]
         public int StarSystemId { get; set; }

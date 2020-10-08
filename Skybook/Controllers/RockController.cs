@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Skybook.Data;
 using Skybook.Models.Rock;
 using Skybook.Services;
 using System;
@@ -9,8 +10,10 @@ using System.Web.Mvc;
 
 namespace Skybook.Controllers
 {
+    [Authorize]
     public class RockController : Controller
     {
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
         // GET: Rock
         public ActionResult Index()
         {
@@ -30,11 +33,13 @@ namespace Skybook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(RockCreate model)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
             if (!ModelState.IsValid) return View(model);
 
             var service = CreateRockService();
 
-            if (service.CreateRock(model))
+            if (service.CreateRock(file, model))
             {
                 TempData["SaveResult"] = "Your Rock has been created.";
                 return RedirectToAction("Index");
@@ -72,6 +77,7 @@ namespace Skybook.Controllers
                     PrimaryElement = detail.PrimaryElement,
                     SecondaryElement = detail.SecondaryElement,
                     Description = detail.Description,
+                    Image = detail.Image,
                     PlanetId = detail.PlanetId
                 };
             return View(model);
@@ -81,6 +87,8 @@ namespace Skybook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, RockEdit model)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
             if (!ModelState.IsValid) return View(model);
 
             if (model.RockId != id)
@@ -91,7 +99,7 @@ namespace Skybook.Controllers
 
             var service = CreateRockService();
 
-            if (service.UpdateRock(model))
+            if (service.UpdateRock(file, model))
             {
                 TempData["SaveResult"] = "Your Rock was updated.";
                 return RedirectToAction("Index");
@@ -120,6 +128,21 @@ namespace Skybook.Controllers
             TempData["SaveResult"] = "Your Rock was deleted";
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult RetrieveImage(int id)
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new RockService(userId);
+            byte[] cover = service.GetImageFromDataBase(id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

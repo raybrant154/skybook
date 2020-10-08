@@ -10,8 +10,12 @@ using System.Web.Mvc;
 
 namespace Skybook.Controllers
 {
+    [Authorize]
+
     public class PlanetController : Controller
     {
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+
         // GET: Planet
         public ActionResult Index()
         {
@@ -32,11 +36,13 @@ namespace Skybook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PlanetCreate model)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
             if (!ModelState.IsValid) return View(model);
 
             var service = CreatePlanetService();
 
-            if (service.CreatePlanet(model))
+            if (service.CreatePlanet(file, model))
             {
                 TempData["SaveResult"] = "Your Planet has been created.";
                 return RedirectToAction("Index");
@@ -76,6 +82,8 @@ namespace Skybook.Controllers
                     SpecialBuried = detail.SpecialBuried,
                     SentinelActivity = detail.SentinelActivity,
                     StarSystemId = detail.StarSystemId,
+                    Image = detail.Image,
+
                 };
             return View(model);
         }
@@ -84,6 +92,8 @@ namespace Skybook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, PlanetEdit model)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
             if (!ModelState.IsValid) return View(model);
 
             if (model.PlanetId != id)
@@ -94,7 +104,7 @@ namespace Skybook.Controllers
 
             var service = CreatePlanetService();
 
-            if (service.UpdatePlanet(model))
+            if (service.UpdatePlanet(file, model))
             {
                 TempData["SaveResult"] = "Your Planet was updated.";
                 return RedirectToAction("Index");
@@ -123,6 +133,21 @@ namespace Skybook.Controllers
             TempData["SaveResult"] = "Your Planet was deleted";
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult RetrieveImage(int id)
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new PlanetService(userId);
+            byte[] cover = service.GetImageFromDataBase(id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

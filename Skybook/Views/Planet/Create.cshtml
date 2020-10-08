@@ -7,68 +7,76 @@
 <h2 style="color: #C0C0C0">Create a Planet</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Planet", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div style="color: #C0C0C0" class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div style="color: #C0C0C0" class="form-group">
-            @Html.LabelFor(model => model.PlanetType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PlanetType, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PlanetType, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-horizontal">
 
-        <div style="color: #C0C0C0" class="form-group">
-            @Html.LabelFor(model => model.Minerals, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Minerals, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Minerals, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div style="color: #C0C0C0" class="form-group">
-            @Html.LabelFor(model => model.SpecialBuried, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SpecialBuried, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SpecialBuried, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div style="color: #C0C0C0" class="form-group">
-            @Html.LabelFor(model => model.SentinelActivity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SentinelActivity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SentinelActivity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div style="color: #C0C0C0" class="form-group">
-            @Html.LabelFor(model => model.StarSystemId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StarSystemId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StarSystemId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div style="color: #C0C0C0" class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div style="color: #C0C0C0" class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div style="color: #C0C0C0" class="form-group">
+        @Html.LabelFor(model => model.PlanetType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PlanetType, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PlanetType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div style="color: #C0C0C0" class="form-group">
+        @Html.LabelFor(model => model.Minerals, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Minerals, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Minerals, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div style="color: #C0C0C0" class="form-group">
+        @Html.LabelFor(model => model.SpecialBuried, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SpecialBuried, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpecialBuried, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div style="color: #C0C0C0" class="form-group">
+        @Html.LabelFor(model => model.SentinelActivity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SentinelActivity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SentinelActivity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div style="color: #C0C0C0" class="form-group">
+        @Html.LabelFor(model => model.StarSystemId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StarSystemId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StarSystemId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+            @*@Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+    <div style="color: #C0C0C0" class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>

@@ -7,21 +7,16 @@
 <h2 style="color: #C0C0C0">Edit a Rock</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Rock", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div style="color: #C0C0C0" class="form-horizontal">
-        
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div style="color: #C0C0C0" class="form-group">
-            @Html.LabelFor(model => model.RockId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RockId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RockId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
+        @Html.HiddenFor(model => model.RockId)
 
         <div style="color: #C0C0C0" class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -60,6 +55,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PlanetId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PlanetId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+                @*@Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })*@
             </div>
         </div>
 

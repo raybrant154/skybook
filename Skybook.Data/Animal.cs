@@ -14,6 +14,7 @@ namespace Skybook.Data
         public int AnimalId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public byte[] Image { get; set; }
 
         [ForeignKey(nameof(Planet))]
         public int PlanetId { get; set; }

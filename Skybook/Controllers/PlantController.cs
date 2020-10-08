@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Skybook.Data;
 using Skybook.Models.Plant;
 using Skybook.Services;
 using System;
@@ -9,8 +10,11 @@ using System.Web.Mvc;
 
 namespace Skybook.Controllers
 {
+    [Authorize]
+
     public class PlantController : Controller
     {
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
         // GET: Plant
         public ActionResult Index()
         {
@@ -30,11 +34,13 @@ namespace Skybook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PlantCreate model)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
             if (!ModelState.IsValid) return View(model);
 
             var service = CreatePlantService();
 
-            if (service.CreatePlant(model))
+            if (service.CreatePlant(file, model))
             {
                 TempData["SaveResult"] = "Your Plant has been created.";
                 return RedirectToAction("Index");
@@ -72,7 +78,8 @@ namespace Skybook.Controllers
                     PrimaryElement = detail.PrimaryElement,
                     SecondaryElement = detail.SecondaryElement,
                     Description = detail.Description,
-                    PlanetId = detail.PlanetId
+                    PlanetId = detail.PlanetId,
+                    Image = detail.Image
                 };
             return View(model);
         }
@@ -81,6 +88,8 @@ namespace Skybook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, PlantEdit model)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
             if (!ModelState.IsValid) return View(model);
 
             if (model.PlantId != id)
@@ -91,7 +100,7 @@ namespace Skybook.Controllers
 
             var service = CreatePlantService();
 
-            if (service.UpdatePlant(model))
+            if (service.UpdatePlant(file, model))
             {
                 TempData["SaveResult"] = "Your Plant was updated.";
                 return RedirectToAction("Index");
@@ -120,6 +129,21 @@ namespace Skybook.Controllers
             TempData["SaveResult"] = "Your Plant was deleted";
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult RetrieveImage(int id)
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new PlantService(userId);
+            byte[] cover = service.GetImageFromDataBase(id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

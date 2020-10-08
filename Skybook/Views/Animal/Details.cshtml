@@ -7,7 +7,7 @@
 <h2 style="color: #C0C0C0">Animal Details</h2>
 
 <div>
-    
+
     <hr />
     <dl style="color: #C0C0C0" class="dl-horizontal">
         <dt>
@@ -44,7 +44,13 @@
 
     </dl>
 </div>
+<br />
+<br />
+<img src="/Animal/RetrieveImage/@Model.AnimalId" alt="" height=250 width=200 />
+<br />
+<br />
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AnimalId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

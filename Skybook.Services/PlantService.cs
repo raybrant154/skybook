@@ -2,9 +2,11 @@
 using Skybook.Models.Plant;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Skybook.Services
 {
@@ -16,8 +18,10 @@ namespace Skybook.Services
             _userId = userId;
         }
 
-        public bool CreatePlant(PlantCreate model)
+        public bool CreatePlant(HttpPostedFileBase file, PlantCreate model)
         {
+            model.Image = ConvertToBytes(file);
+
             var entity =
                 new Plant()
                 {
@@ -25,12 +29,23 @@ namespace Skybook.Services
                     PrimaryElement = model.PrimaryElement,
                     SecondaryElement = model.SecondaryElement,
                     Description = model.Description,
-                    PlanetId = model.PlanetId
+                    PlanetId = model.PlanetId,
+                    Image = model.Image
                 };
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.Plants.Add(entity);
                 return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public byte[] GetImageFromDataBase(int Id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var q = from temp in db.Plants where temp.PlantId == Id select temp.Image;
+                byte[] cover = q.First();
+                return cover;
             }
         }
 
@@ -52,6 +67,7 @@ namespace Skybook.Services
                             SecondaryElement = e.SecondaryElement,
                             Description = e.Description,
                             PlanetId = e.PlanetId
+                            
                         }
                         );
                 return query.ToArray();
@@ -79,8 +95,10 @@ namespace Skybook.Services
             }
         }
 
-        public bool UpdatePlant(PlantEdit model)
+        public bool UpdatePlant(HttpPostedFileBase file, PlantEdit model)
         {
+            model.Image = ConvertToBytes(file);
+
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
@@ -94,6 +112,7 @@ namespace Skybook.Services
                 entity.SecondaryElement = model.SecondaryElement;
                 entity.Description = model.Description;
                 entity.PlanetId = model.PlanetId;
+                entity.Image = model.Image;
 
                 return ctx.SaveChanges() == 1;
 
@@ -113,6 +132,14 @@ namespace Skybook.Services
 
                 return ctx.SaveChanges() == 1;
             }
+        }
+
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
         }
     }
 }

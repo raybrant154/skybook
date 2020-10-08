@@ -5,9 +5,11 @@ using Skybook.Models.Plant;
 using Skybook.Models.Rock;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Skybook.Services
 {
@@ -19,8 +21,10 @@ namespace Skybook.Services
             _userId = userId;
         }
 
-        public bool CreatePlanet(PlanetCreate model)
+        public bool CreatePlanet(HttpPostedFileBase file, PlanetCreate model)
         {
+            model.Image = ConvertToBytes(file);
+
             var entity =
                 new Planet()
                 {
@@ -29,12 +33,23 @@ namespace Skybook.Services
                     Minerals = model.Minerals,
                     SpecialBuried = model.SpecialBuried,
                     SentinelActivity = model.SentinelActivity,
-                    StarSystemId = model.StarSystemId
+                    StarSystemId = model.StarSystemId,
+                    Image = model.Image
                 };
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.Planets.Add(entity);
                 return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public byte[] GetImageFromDataBase(int Id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var q = from temp in db.Planets where temp.PlanetId == Id select temp.Image;
+                byte[] cover = q.First();
+                return cover;
             }
         }
 
@@ -111,10 +126,13 @@ namespace Skybook.Services
              }
         }
 
-        public bool UpdatePlanet(PlanetEdit model)
+        public bool UpdatePlanet(HttpPostedFileBase file, PlanetEdit model)
         {
+                model.Image = ConvertToBytes(file);
+
             using (var ctx = new ApplicationDbContext())
             {
+
                 var entity =
                     ctx.Planets
                     .Single(e => e.PlanetId == model.PlanetId && e.StarSystem.OwnerId == _userId);
@@ -126,6 +144,7 @@ namespace Skybook.Services
                 entity.SpecialBuried = model.SpecialBuried;
                 entity.SentinelActivity = model.SentinelActivity;
                 entity.StarSystemId = model.StarSystemId;
+                entity.Image = model.Image;
 
                 return ctx.SaveChanges() == 1;
             }
@@ -144,6 +163,14 @@ namespace Skybook.Services
 
                 return ctx.SaveChanges() == 1;
             }
+        }
+
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
         }
     }
 }

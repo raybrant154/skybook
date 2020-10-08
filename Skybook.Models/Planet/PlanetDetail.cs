@@ -24,6 +24,8 @@ namespace Skybook.Models.Planet
         [Display(Name="Special Items here")]
         public string SpecialBuried { get; set; }
         public string SentinelActivity { get; set; }
+        public byte[] Image { get; set; }
+
 
         [ForeignKey(nameof(StarSystem))]
         public int StarSystemId { get; set; }

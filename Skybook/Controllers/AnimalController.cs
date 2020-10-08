@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Skybook.Data;
 using Skybook.Models.Animal;
 using Skybook.Services;
 using System;
@@ -9,8 +10,10 @@ using System.Web.Mvc;
 
 namespace Skybook.Controllers
 {
+    [Authorize]
     public class AnimalController : Controller
     {
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
         // GET: Animal
         public ActionResult Index()
         {
@@ -30,11 +33,13 @@ namespace Skybook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AnimalCreate model)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
             if (!ModelState.IsValid) return View(model);
 
             var service = CreateAnimalService();
 
-            if (service.CreateAnimal(model))
+            if (service.CreateAnimal(file, model))
             {
                 TempData["SaveResult"] = "Your Animal has been created.";
                 return RedirectToAction("Index");
@@ -53,7 +58,6 @@ namespace Skybook.Controllers
             return View(model);
         }
 
-
         private AnimalService CreateAnimalService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
@@ -71,6 +75,7 @@ namespace Skybook.Controllers
                     AnimalId = detail.AnimalId,
                     Name = detail.Name,
                     Description = detail.Description,
+                    Image = detail.Image,
                     PlanetId = detail.PlanetId
                 };
             return View(model);
@@ -80,6 +85,8 @@ namespace Skybook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, AnimalEdit model)
         {
+            HttpPostedFileBase file = Request.Files["ImageData"];
+
             if (!ModelState.IsValid) return View(model);
 
             if (model.AnimalId != id)
@@ -90,7 +97,7 @@ namespace Skybook.Controllers
 
             var service = CreateAnimalService();
 
-            if (service.UpdateAnimal(model))
+            if (service.UpdateAnimal(file, model))
             {
                 TempData["SaveResult"] = "Your Animal was updated.";
                 return RedirectToAction("Index");
@@ -120,5 +127,21 @@ namespace Skybook.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult RetrieveImage(int id)
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new AnimalService(userId);
+            byte[] cover = service.GetImageFromDataBase(id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
     }
 }

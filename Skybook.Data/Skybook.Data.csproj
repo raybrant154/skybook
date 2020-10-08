@@ -56,6 +56,27 @@
   <ItemGroup>
     <Compile Include="Animal.cs" />
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="Migrations\202009301842331_InitialCreate.cs" />
+    <Compile Include="Migrations\202009301842331_InitialCreate.Designer.cs">
+      <DependentUpon>202009301842331_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010071511519_AddingImagesCapabilityForAnimals.cs" />
+    <Compile Include="Migrations\202010071511519_AddingImagesCapabilityForAnimals.Designer.cs">
+      <DependentUpon>202010071511519_AddingImagesCapabilityForAnimals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010081423597_AddedPlantImageCapability.cs" />
+    <Compile Include="Migrations\202010081423597_AddedPlantImageCapability.Designer.cs">
+      <DependentUpon>202010081423597_AddedPlantImageCapability.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010081514507_AddedRockImageCapability.cs" />
+    <Compile Include="Migrations\202010081514507_AddedRockImageCapability.Designer.cs">
+      <DependentUpon>202010081514507_AddedRockImageCapability.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010081741100_AddedPlanetImageCapability.cs" />
+    <Compile Include="Migrations\202010081741100_AddedPlanetImageCapability.Designer.cs">
+      <DependentUpon>202010081741100_AddedPlanetImageCapability.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="Plant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +86,23 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202009301842331_InitialCreate.resx">
+      <DependentUpon>202009301842331_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010071511519_AddingImagesCapabilityForAnimals.resx">
+      <DependentUpon>202010071511519_AddingImagesCapabilityForAnimals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010081423597_AddedPlantImageCapability.resx">
+      <DependentUpon>202010081423597_AddedPlantImageCapability.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010081514507_AddedRockImageCapability.resx">
+      <DependentUpon>202010081514507_AddedRockImageCapability.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010081741100_AddedPlanetImageCapability.resx">
+      <DependentUpon>202010081741100_AddedPlanetImageCapability.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

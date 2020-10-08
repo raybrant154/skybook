@@ -12,6 +12,9 @@
 <table style="color: #C0C0C0" class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.AnimalId)
         </th>
         <th>
@@ -27,25 +30,29 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnimalId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PlanetId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.AnimalId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.AnimalId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.AnimalId })
-        </td>
-    </tr>
+<tr>
+
+    <td>
+        <img src="/Animal/RetrieveImage/@item.AnimalId" alt="" height=250 width=200 />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AnimalId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PlanetId)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.AnimalId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.AnimalId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.AnimalId })
+    </td>
+</tr>
 }
 
 </table>

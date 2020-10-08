@@ -2,9 +2,11 @@
 using Skybook.Models.Animal;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Skybook.Services
 {
@@ -17,20 +19,33 @@ namespace Skybook.Services
         }
 
 
-        public bool CreateAnimal(AnimalCreate model)
+        public bool CreateAnimal(HttpPostedFileBase file, AnimalCreate model)
         {
+            model.Image = ConvertToBytes(file);
+
             var entity =
                 new Animal()
                 {
-                    
+
                     Name = model.Name,
                     Description = model.Description,
-                    PlanetId = model.PlanetId
+                    PlanetId = model.PlanetId,
+                    Image = model.Image
                 };
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.Animals.Add(entity);
                 return ctx.SaveChanges() == 1;
+            }
+        }
+
+        public byte[] GetImageFromDataBase(int Id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var q = from temp in db.Animals where temp.AnimalId == Id select temp.Image;
+                byte[] cover = q.First();
+                return cover;
             }
         }
 
@@ -50,6 +65,8 @@ namespace Skybook.Services
                             Name = e.Name,
                             Description = e.Description,
                             PlanetId = e.PlanetId
+                            
+                            
                         }
                         );
                 return query.ToArray();
@@ -75,8 +92,10 @@ namespace Skybook.Services
             }
         }
 
-        public bool UpdateAnimal(AnimalEdit model)
+        public bool UpdateAnimal(HttpPostedFileBase file, AnimalEdit model)
         {
+            model.Image = ConvertToBytes(file);
+
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
@@ -87,6 +106,7 @@ namespace Skybook.Services
                 entity.AnimalId = model.AnimalId;
                 entity.Name = model.Name;
                 entity.Description = model.Description;
+                entity.Image = model.Image;
                 entity.PlanetId = model.PlanetId;
 
                 return ctx.SaveChanges() == 1;
@@ -107,6 +127,14 @@ namespace Skybook.Services
 
                 return ctx.SaveChanges() == 1;
             }
+        }
+
+        public byte[] ConvertToBytes(HttpPostedFileBase image)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(image.InputStream);
+            imageBytes = reader.ReadBytes((int)image.ContentLength);
+            return imageBytes;
         }
     }
 }
